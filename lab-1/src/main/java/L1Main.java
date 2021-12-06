@@ -1,4 +1,11 @@
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class L1Main {
     public static final String textToEncode1 = "7958401743454e175617455247525" +
@@ -51,22 +58,14 @@ public class L1Main {
 
 
 
-    public static void main(String[] args) {
-        String test;
-        for (int i = 0; i < 256; i++) {
-            System.out.println(xorEncoder(textToEncode2, (char) i));
-            System.out.println("******************" + (char) i);
-        }
-
+    public static void main(String[] args) throws DecoderException {
+        System.out.println("1-1");
+        System.out.println("7 7 7 7 7 7 7 7 7 7 7 7 7 7");
+        byte[] bytes = Hex.decodeHex(textToEncode1.toCharArray());
+        System.out.println();
+        System.out.println("Decrypted String");
+        MyEncryptors.xorSingleEncoder(new String(bytes));
     }
 
-    private static String xorEncoder(String message, char key){
-        byte[] textB = message.getBytes(StandardCharsets.UTF_8);
-        StringBuilder resultSB = new StringBuilder();
-        for (byte b:
-             textB) {
-            resultSB.append((char) (b^key));
-        }
-        return resultSB.toString();
-    }
+
 }
