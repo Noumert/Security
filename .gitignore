@@ -1,3 +1,4 @@
 # Project exclude paths
 /lab-1/target/
 /test/
+/.idea/
