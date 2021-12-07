@@ -4,6 +4,7 @@ import org.apache.commons.codec.binary.Hex;
 import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -60,11 +61,17 @@ public class L1Main {
 
     public static void main(String[] args) throws DecoderException {
         System.out.println("1-1");
-        System.out.println("7 7 7 7 7 7 7 7 7 7 7 7 7 7");
         byte[] bytes = Hex.decodeHex(textToEncode1.toCharArray());
         System.out.println();
         System.out.println("Decrypted String");
         MyEncryptors.xorSingleEncoder(new String(bytes));
+
+        System.out.println("1-2");
+//        byte[] bytes = Hex.decodeHex(textToEncode1.toCharArray());
+        System.out.println();
+        System.out.println("Decrypted String");
+        MyEncryptors.xorRepeatingEncoder(new String(Base64.getDecoder().decode(textToEncode2)));
+//        MyEncryptors.xorRepeatingEncoder(textToEncode2);
     }
 
 
