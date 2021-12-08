@@ -10,9 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -42,7 +40,57 @@ public class Casino {
 
     private static long getLCG() throws Exception {
 
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/playLcg?id=5112&bet=1&number=34689329");
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playLcg?id=5114&bet=1&number=34689329");
+
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+            System.out.println(response.getStatusLine().toString());
+
+            HttpEntity entity = response.getEntity();;
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                CasinoAnswer a = objectMapper.readValue(result, CasinoAnswer.class);
+                System.out.println(a.realNumber);
+                return a.realNumber;
+            }
+
+        }
+
+        return 0;
+    }
+
+    private static long getMt() throws Exception {
+
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playMT?id=5114&bet=1&number=34689329");
+
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+            System.out.println(response.getStatusLine().toString());
+
+            HttpEntity entity = response.getEntity();;
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                CasinoAnswer a = objectMapper.readValue(result, CasinoAnswer.class);
+                System.out.println(a.realNumber);
+                return a.realNumber;
+            }
+
+        }
+
+        return 0;
+    }
+
+    private static long getBetterMT() throws Exception {
+
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playBetterMt?id=5114&bet=1&number=34689329");
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
 
@@ -91,12 +139,23 @@ public class Casino {
 
     }
 
-    public static void register(){
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/playLcg?id=2&bet=1&number=34689329");
+    public static void register() throws IOException {
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/createacc?id=5114");
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
 
+            // Get HttpResponse Status
+            System.out.println(response.getStatusLine().toString());
+        }
     }
 
     public static void main(String[] args) throws Exception {
-        breakLCG();
+//        breakLCG();
+        register();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Vova\\Desktop\\Study\\Security\\lab-3\\src\\main\\Python\\numbers.txt"));
+        for (int i = 0; i < 624; i++) {
+            String number = String.valueOf(getMt());
+            writer.write(number+"\n");
+        }
+        writer.close();
     }
 }
