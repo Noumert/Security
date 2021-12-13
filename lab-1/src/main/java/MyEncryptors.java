@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MyEncryptors {
+    public static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     public static final Map<Character, Integer> alphabetFrequency = Map.ofEntries
             (
                     Map.entry('e', 390395169),
@@ -106,15 +108,34 @@ public class MyEncryptors {
 
         String bestKey = getBestKeyR(columnsXorShifts);
         System.out.println("Most possible key:" + bestKey);
-        System.out.println("Real key: L0lL0lL0l");
+        System.out.println("Real key: L0l");
         System.out.print("Most possible text: ");
         String decodedText = xorEncoderR(text, bestKey);
         System.out.println(decodedText);
         System.out.print("Real text: ");
-        decodedText = xorEncoderR(text, "L0lL0lL0l");
+        decodedText = xorEncoderR(text, "L0l");
         System.out.println(decodedText);
 
     }
+
+//    public static void subDecoder(String text)
+//    {
+//        List<Character> charactersText = getCharFrequencies(text.toLowerCase()).entrySet().stream()
+//                .sorted(Comparator.comparing(m->m.getValue()*-1))
+//                .map(Map.Entry::getKey).toList();
+//        List<Character> charactersStat = alphabetFrequency.entrySet().stream()
+//                .sorted(Comparator.comparing(m->m.getValue()*-1))
+//                .map(Map.Entry::getKey).toList();
+//        char[] result = new char[text.length()];
+//        for (int i = 0; i < charactersText.size(); i++) {
+//            for (int j = 0;j<text.length();j++) {
+//                if(Character.toUpperCase(charactersText.get(i)) == (text.charAt(j))){
+//                    result[j] = charactersStat.get(i);
+//                }
+//            }
+//        }
+//        System.out.println(new String(result));
+//     }
 
     private static String getBestKeyR(List<Map<Character, String>> columnsXorShifts) {
         List<Character> chars = columnsXorShifts.stream()
@@ -194,13 +215,26 @@ public class MyEncryptors {
         return result.toString();
     }
 
-
     public static String xorEncoderR(String text, String key) {
-        ;
         var result = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             result.append((char) (text.charAt(i) ^ key.charAt(i % key.length())));
         }
         return result.toString();
     }
+
+//    public static String subDecipher(String[] key, String cipherText)
+//    {
+//        var plainTextBuilder = new StringBuilder();
+//        for (int i = 0; i < cipherText.length(); i++)
+//        {
+//            int alphabetNumber = i % key.length;
+//            String currentAlphabet = key[alphabetNumber];
+//            char cipherTextChar = cipherText.charAt(i);
+//            int charIndex = currentAlphabet.indexOf(cipherTextChar);
+//            char plainTextChar = alphabet.charAt(charIndex);
+//            plainTextBuilder.append(plainTextChar);
+//        }
+//        return plainTextBuilder.toString();
+//    }
 }

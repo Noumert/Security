@@ -67,11 +67,15 @@ public class L1Main {
         MyEncryptors.xorSingleEncoder(new String(bytes));
 
         System.out.println("1-2");
-//        byte[] bytes = Hex.decodeHex(textToEncode1.toCharArray());
         System.out.println();
         System.out.println("Decrypted String");
         MyEncryptors.xorRepeatingEncoder(new String(Base64.getDecoder().decode(textToEncode2)));
-//        MyEncryptors.xorRepeatingEncoder(textToEncode2);
+
+//        System.out.println("1-3");
+//        System.out.println();
+//        System.out.println("Decrypted String");
+//        MyEncryptors.subDecoder(textToEncode3);
+//        System.out.println(MyEncryptors.subDecipher(new String[]{"EKMFLODQVINTGWYHJUSPAXBRCZ"},textToEncode3));
     }
 
 
