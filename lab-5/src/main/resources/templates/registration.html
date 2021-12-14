@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="headerTemplete :: headerTempl">
+</head>
+<body>
+<div th:replace="headerTemplete :: panelTopMain">
+</div>
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+
+            <span th:if="${success}">
+            <div class="alert alert-info"
+                 th:utext="Success">
+                success
+            </div>
+            </span>
+            <span th:if="${generalError}">
+            <div class="alert alert-danger"
+                 th:utext="Error">
+                error
+            </div>
+            </span>
+
+            <h1 th:text="Registration">Registration</h1>
+
+            <form th:action="@{/registration}" method="post" th:object="${user}">
+
+                <div class="form-group">
+                    <label class="control-label" for="email" th:text="email"> Email </label>
+                    <input id="email"
+                           class="form-control"
+                           th:field="*{email}"
+                           required
+                           autofocus="autofocus"/>
+                    <p th:each="error : ${#fields.errors('email')}"
+                       th:utext="${error}" class="alert alert-danger">Validation error</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password" th:text="password"> Password </label>
+                    <input id="password"
+                           class="form-control"
+                           type="password"
+                           th:field="*{password}"
+                           required
+                           autofocus="autofocus"/>
+                    <p th:each="error : ${#fields.errors('password')}"
+                       th:utext="${error}" class="alert alert-danger">Validation error</p>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" th:text="Submit">Submit</button>
+                    <span><a href="/" th:href="@{/login}" th:text="Login">Login
+								here</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
