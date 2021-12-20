@@ -14,7 +14,9 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Random;
 
-public class StringAttributeConverter implements AttributeConverter<String, String> {
+public class StringAttributeConverter
+//        implements AttributeConverter<String, String>
+{
 
     Random random = new SecureRandom();
     private static final String AES = "AES";
@@ -49,7 +51,7 @@ public class StringAttributeConverter implements AttributeConverter<String, Stri
         cipher = Cipher.getInstance(AES);
     }
 
-    @Override
+
     public String convertToDatabaseColumn(String attribute) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -59,7 +61,7 @@ public class StringAttributeConverter implements AttributeConverter<String, Stri
         }
     }
 
-    @Override
+
     public String convertToEntityAttribute(String dbData) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key);

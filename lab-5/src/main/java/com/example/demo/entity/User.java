@@ -24,9 +24,11 @@ public class User{
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Convert(converter = StringAttributeConverter.class)
+//    @Convert(converter = StringAttributeConverter.class)
     @Column(nullable = false,unique = true)
     private String email;
+    @Column(nullable = false,unique = true)
+    private String emailSecret;
     @Column(nullable = false)
     private String password;
     @Column(name = "role")

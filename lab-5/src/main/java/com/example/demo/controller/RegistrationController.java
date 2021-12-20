@@ -59,7 +59,8 @@ public class RegistrationController {
             try {
                 User user = userDtoConverter.convertDtoToEntity(userDto);
                 user.setRole(RoleType.ROLE_USER);
-                userService.save(user);
+                user.setEmailSecret(user.getEmail());
+                userService.saveEncrypted(user);
                 redirectAttributes.addAttribute("success", true);
             } catch (RuntimeException e) {
                 redirectAttributes.addAttribute("generalError", true);

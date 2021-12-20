@@ -40,7 +40,7 @@ public class Casino {
 
     private static long getLCG() throws Exception {
 
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/playLcg?id=5114&bet=1&number=34689329");
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playLcg?id=6000&bet=1&number=34689329");
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
 
@@ -65,7 +65,7 @@ public class Casino {
 
     private static long getMt() throws Exception {
 
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/playMT?id=5114&bet=1&number=34689329");
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playMT?id=6000&bet=1&number=34689329");
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
 
@@ -90,7 +90,7 @@ public class Casino {
 
     private static long getBetterMT() throws Exception {
 
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/playBetterMt?id=5114&bet=1&number=34689329");
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/playBetterMt?id=6000&bet=1&number=34689329");
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
 
@@ -140,7 +140,7 @@ public class Casino {
     }
 
     public static void register() throws IOException {
-        HttpGet request = new HttpGet("http://95.217.177.249/casino/createacc?id=5114");
+        HttpGet request = new HttpGet("http://95.217.177.249/casino/createacc?id=6000");
         try (CloseableHttpResponse response = httpClient.execute(request)) {
 
             // Get HttpResponse Status
@@ -149,12 +149,13 @@ public class Casino {
     }
 
     public static void main(String[] args) throws Exception {
-//        breakLCG();
+
         register();
+
         BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Vova\\Desktop\\Study\\Security\\lab-3\\src\\main\\Python\\numbers.txt"));
         for (int i = 0; i < 624; i++) {
-            String number = String.valueOf(getMt());
-            writer.write(number+"\n");
+//            String number = String.valueOf(getMT());
+//            writer.write(number+"\n");
         }
         writer.close();
     }
